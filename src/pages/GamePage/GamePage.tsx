@@ -5,7 +5,6 @@ import toast from 'react-hot-toast'
 import useUserStore from '../../features/userStore'
 
 import './GamePage.css'
-import HomeButton from '../../components/common/HomeButton'
 
 interface Country {
     name: string
@@ -29,7 +28,6 @@ const GamePage = () => {
     const [currentFlag, setCurrentFlag] = useState<Country>({name: '', code: ''})
     const [currentTurnNumber, setCurrentTurnNumber] = useState<number>(1)
     const [options, setOptions] = useState<Country[]>([])
-    const [guesses, setGuesses] = useState<{ [userId: string]: string }>({})
     const [points, setPoints] = useState<{ [userId: string]: number }>({})
 
     const [gameOver, setGameOver] = useState<boolean>(false)
@@ -64,7 +62,6 @@ const GamePage = () => {
             setCurrentTurn(gameState.currentTurn);
             setCurrentFlag(gameState.currentFlag);
             setOptions(shuffleAnswers(gameState.options, gameState.currentFlag));
-            setGuesses(gameState.guesses);
             setPoints(gameState.points);
             setGameOver(gameState.gameOver)
             setCurrentTurnNumber(Math.floor(gameState.currentTurnNumber / 2))
