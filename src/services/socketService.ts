@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 
-const socket: Socket = io('http://localhost:3000');
+const socket: Socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:3000');
 
 interface RoomCreatedCallback {
   (roomCode: string): void;
