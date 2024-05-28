@@ -1,6 +1,8 @@
 import { io, Socket } from 'socket.io-client';
 
-const socket: Socket = io('wss://lippu-back-production.up.railway.app');
+const socket: Socket = io('https://lippu-back-production.up.railway.app', {
+  transports: ['websocket'],
+});
 
 interface RoomCreatedCallback {
   (roomCode: string): void;
