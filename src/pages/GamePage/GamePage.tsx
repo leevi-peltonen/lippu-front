@@ -136,41 +136,42 @@ const GamePage = () => {
     )
 
     if(gameRunning) return (
-        <div>
-            <p>Vuoro Numero {currentTurnNumber}</p>
-            <p>Nyt Pelaa: {currentTurn}</p>
+        <div className="game-container">
+            <p className="turn-number">Vuoro Numero {currentTurnNumber}</p>
+            
             {currentTurn === userId ? (
-            <div>
-              <p>Sinun vuorosi!</p>
-              <img src={`https://flagsapi.com/${currentFlag.code}/shiny/64.png`} alt="Current flag" />
-              <div>
+            <div className="player-turn">
+              <p className="highlight">Sinun vuorosi!</p>
+              <img className="flag" src={`https://flagcdn.com/${currentFlag.code.toLowerCase()}.svg`} alt="Current flag" width="500" />
+              <div className="options">
                 {options.map((option, index) => (
-                  <button key={index} onClick={() => handleMakeGuess(option.code)}>
+                  <button className="option-button" key={index} onClick={() => handleMakeGuess(option.code)}>
                     {option.name}
                   </button>
                 ))}
               </div>
             </div>
           ) : (
-            <div>
+            <div className="opponent-turn">
               <p>Vastustajan vuoro...</p>
-              <img src={`https://flagsapi.com/${currentFlag.code}/shiny/64.png`} alt="Current flag" />
-              <div>
+              <img className="flag"src={`https://flagcdn.com/${currentFlag.code.toLowerCase()}.svg`} alt="Current flag" width="500" />
+              <div className="options">
                 {options.map((option, index) => (
-                  <button key={index} disabled>
+                  <button className="option-button" key={index} disabled>
                     {option.name}
                   </button>
                 ))}
               </div>
             </div>
           )}
-            <h2>Pisteet:</h2>
-            <ul>
-              {Object.entries(points).map(([user, point], index) => (
-                <li key={index}>{`${user}: ${point}`}</li>
-              ))}
-            </ul>
-
+            <div className="points-container">
+                <h2>Pisteet:</h2>
+                <ul className="points-list">
+                {Object.entries(points).map(([user, point], index) => (
+                    <li className="points-item" key={index}>{`${user}: ${point}`}</li>
+                ))}
+                </ul>
+            </div>
         </div>
     )
 
