@@ -72,6 +72,7 @@ const GamePage = () => {
         onError(handleError);
         onUsersUpdated(handleUsersUpdated);
         socket.on('updateGameState', handleGameState)
+        
 
         return () => {
             socket.off('message', handleMessageReceived)

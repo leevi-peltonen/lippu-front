@@ -5,6 +5,14 @@ const socket: Socket = io(socket_url, {
   transports: ['websocket'],
 });
 
+export interface Room {
+    code: string
+    users: string[]
+    difficulty: 'easy' | 'medium' | 'hard'
+    length: number
+    gamemode: 'Klassikko' | 'Aikapommi'
+}
+
 interface RoomCreatedCallback {
   (roomCode: string): void;
 }
@@ -21,11 +29,15 @@ interface MessageReceivedCallback {
   (data: { userId: string, message: string }): void;
 }
 
+interface RoomsReceivedCallback {
+    (rooms: Room[]): void;
+}
+
 interface ErrorCallback {
   (errorMessage: string): void;
 }
 
-export const createRoom = (data: {userId: string, difficulty: 'easy'|'medium'|'hard', length: number}, callback: RoomCreatedCallback): void => {
+export const createRoom = (data: {userId: string, difficulty: 'easy'|'medium'|'hard', length: number, gamemode: 'Klassikko' | 'Aikapommi'}, callback: RoomCreatedCallback): void => {
   socket.emit('createRoom', data);
   socket.on('roomCreated', (roomCode: string) => {
     callback(roomCode);
@@ -52,6 +64,16 @@ export const onMessageReceived = (callback: MessageReceivedCallback): void => {
     callback(data);
   });
 };
+
+export const onRoomsReceived = (callback: RoomsReceivedCallback): void => {
+    socket.on('rooms', (rooms: Room[]) => {
+        callback(rooms)
+    })
+}
+
+export const getAllRooms = (): void => {
+    socket.emit('requestRooms')
+}
 
 export const onError = (callback: ErrorCallback): void => {
   socket.on('error', (errorMessage: string) => {

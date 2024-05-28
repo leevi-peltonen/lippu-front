@@ -15,7 +15,13 @@ const GameSettingsPage = () => {
     const lengthRef = createRef<HTMLSelectElement>()
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault()
-        createRoom({userId: userId, difficulty:getDifficulty(), length: getLength()}, (roomCode: string) => {
+        createRoom(
+            {
+                userId: userId, 
+                difficulty:getDifficulty(), 
+                length: getLength(), 
+                gamemode: getGamemode()
+            }, (roomCode: string) => {
             console.log('Room created:', roomCode)
             if(!roomCode) return toast.error('Huoneen luonti epäonnistui')
             toast.success('Huone luotu onnistuneesti koodilla: ' + roomCode)
@@ -49,6 +55,10 @@ const GameSettingsPage = () => {
             default:
                 return 5
         }
+    }
+
+    const getGamemode = () => {
+        return gamemode === '1' ? 'Klassikko' : 'Aikapommi'
     }
 
     return (
