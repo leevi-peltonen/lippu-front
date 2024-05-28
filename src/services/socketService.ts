@@ -1,12 +1,9 @@
 import { io, Socket } from 'socket.io-client';
+const socket_url: string = import.meta.env.VITE_WS_URL
 
-const socket: Socket = io('http://localhost:3000', {
+const socket: Socket = io(socket_url, { 
   transports: ['websocket'],
 });
-
-// const socket: Socket = io('https://lippu-back-production.up.railway.app/', {
-//   transports: ['websocket'],
-// });
 
 interface RoomCreatedCallback {
   (roomCode: string): void;
