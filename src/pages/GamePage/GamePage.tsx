@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import useUserStore from '../../features/userStore'
 
 import './GamePage.css'
+import LoadingSign from '../../components/common/LoadingSign'
 
 interface Country {
     name: string
@@ -64,7 +65,7 @@ const GamePage = () => {
             setOptions(shuffleAnswers(gameState.options, gameState.currentFlag));
             setPoints(gameState.points);
             setGameOver(gameState.gameOver)
-            setCurrentTurnNumber(Math.floor(gameState.currentTurnNumber / 2))
+            setCurrentTurnNumber(Math.floor(gameState.currentTurnNumber / 2) + 1)
         };
 
 
@@ -116,8 +117,11 @@ const GamePage = () => {
         let winner = ''
         let highestScore = 0
         for (const [user, score] of Object.entries(points)) {
+            if(score === highestScore) {
+                winner = 'Peli Päättyi Tasan!'
+            }
             if(score > highestScore) {
-                winner = user
+                winner = `Voittaja on ${user}!`
                 highestScore = score
             }
         }
@@ -126,7 +130,7 @@ const GamePage = () => {
 
     if(gameOver) return (
         <div>
-            <h1>Peli ohi! Voittaja on {findWinner(points)}!</h1>
+            <h1>Peli ohi! {findWinner(points)}</h1>
             <h2>Lopulliset pisteet</h2>
             <ul>
               {Object.entries(points).map(([user, point], index) => (
@@ -154,7 +158,7 @@ const GamePage = () => {
             </div>
           ) : (
             <div className="opponent-turn">
-              <p>Vastustajan vuoro...</p>
+              <p>Vastustajan vuoro<LoadingSign/></p>
               <img className="flag"src={`https://flagcdn.com/${currentFlag.code.toLowerCase()}.svg`} alt="Current flag" width="500" />
               <div className="options">
                 {options.map((option, index) => (
