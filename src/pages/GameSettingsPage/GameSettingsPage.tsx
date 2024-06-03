@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { createRoom } from "../../services/socketService"
-import { createRef } from "react"
+import { createRef, useEffect } from "react"
 
 import './GameSettingsPage.css'
 import toast from "react-hot-toast"
@@ -28,6 +28,9 @@ const GameSettingsPage = () => {
             navigate('/game/' + roomCode)
         })
     }
+
+    useEffect(() => {
+    }, [])
 
     const getDifficulty = () => {
         switch(difficultyRef.current?.value) {
@@ -58,7 +61,17 @@ const GameSettingsPage = () => {
     }
 
     const getGamemode = () => {
-        return gamemode === '1' ? 'Klassikko' : 'Aikapommi'
+        switch(gamemode) {
+            case '1':
+                return 'Klassikko'
+            case '2':
+                return 'Aikapommi'
+            case '3':
+                return 'Juoksuhauta'
+            default:
+                return 'Klassikko'
+        }
+        
     }
 
     return (

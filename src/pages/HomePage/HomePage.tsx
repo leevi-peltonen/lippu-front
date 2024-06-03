@@ -25,7 +25,7 @@ const HomePage = () => {
 
     return (
         <>
-            <h2>Lippuvisa</h2>
+            <h2></h2>
             <input type="text" defaultValue={userId} placeholder="Kirjoita nimesi" ref={nameInput} />
             <button className="m-10" onClick={createGame}>Luo Peli</button>
             <button className="m-10" onClick={joinGame}>Liity Peliin</button>

@@ -1,14 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { Gamemode } from '../../models/game'
 import './CreateGamePage.css'
 
-interface GameMode {
-    id: number
-    name: string
-    description: string
 
-}
 
-const GameModes: GameMode[] = [
+const GameModes: Gamemode[] = [
     {
         id: 1,
         name: 'Klassikko',
@@ -19,14 +15,18 @@ const GameModes: GameMode[] = [
         name: 'Aikapommi',
         description: 'Nopeatempoinen versio klassikosta, jossa pelaajat vastaavat samaan aikaan'
     },
-
+    {
+        id: 3,
+        name: 'Juoksuhauta',
+        description: 'Lippujen vaikeusaste kasvaa, mitä pidemmälle peli etenee. Peli päättyy väärään vastaukseen'
+    }
 ]
 
 
 
 const CreateGamePage = () => {
     const navigate = useNavigate()
-    const chooseGameMode = (mode: GameMode) => {
+    const chooseGameMode = (mode: Gamemode) => {
         navigate('/game-settings/' + mode.id)
     }
 

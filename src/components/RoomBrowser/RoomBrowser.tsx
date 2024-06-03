@@ -1,4 +1,5 @@
-import { getAllRooms, onRoomsReceived, Room, socket } from '../../services/socketService'
+import { getAllRooms, onRoomsReceived, socket } from '../../services/socketService'
+import { Room } from '../../models/room'
 import { useEffect, useState } from 'react'
 import TableButton from '../common/TableButton'
 import './RoomBrowser.css'
@@ -26,6 +27,7 @@ const RoomBrowser = ({joinRoom}: RoomBrowserProps) => {
 
     return (
         <div className="container">
+            {rooms.length > 0 ?
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -51,7 +53,7 @@ const RoomBrowser = ({joinRoom}: RoomBrowserProps) => {
                         )
                     })}
                 </tbody>
-            </table>
+            </table> : <p>Huoneita ei löytynyt</p>}
         </div>
     )
 }

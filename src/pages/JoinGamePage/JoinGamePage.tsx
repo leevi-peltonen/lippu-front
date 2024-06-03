@@ -41,17 +41,25 @@ const JoinGamePage = () => {
 
 
     return (
-        <>
-            <h2>Syötä aulan koodi</h2>
-            <DigitInput onInputComplete={(code: string) => setGameCode(code)} />
-            <TableButton
-                action={joinGame}
-                value={gameCode}
-                label="Liity"
-            />
+        <div className="container-row">
+            <section className="container-column">
+                <h2>Yksityinen peli - Syötä aulan koodi</h2>
+                <DigitInput onInputComplete={(code: string) => setGameCode(code)} />
+                <TableButton
+                    action={joinGame}
+                    value={gameCode}
+                    label="Liity"
+                />
+            </section>
+
             <hr/>
-            <RoomBrowser joinRoom={joinGame} />
-        </>
+
+            <section className="container-column">
+                <h2>Julkinen peli - Liity valikosta</h2>
+                <RoomBrowser joinRoom={joinGame} />
+            </section>
+
+        </div>
     )
 }
 

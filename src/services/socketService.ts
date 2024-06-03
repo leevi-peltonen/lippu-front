@@ -1,17 +1,12 @@
 import { io, Socket } from 'socket.io-client';
+import { Room } from '../models/room';
 const socket_url: string = import.meta.env.VITE_WS_URL
 
 const socket: Socket = io(socket_url, { 
   transports: ['websocket'],
 });
 
-export interface Room {
-    code: string
-    users: string[]
-    difficulty: 'easy' | 'medium' | 'hard'
-    length: number
-    gamemode: 'Klassikko' | 'Aikapommi'
-}
+
 
 interface RoomCreatedCallback {
   (roomCode: string): void;
@@ -37,7 +32,7 @@ interface ErrorCallback {
   (errorMessage: string): void;
 }
 
-export const createRoom = (data: {userId: string, difficulty: 'easy'|'medium'|'hard', length: number, gamemode: 'Klassikko' | 'Aikapommi'}, callback: RoomCreatedCallback): void => {
+export const createRoom = (data: {userId: string, difficulty: 'easy'|'medium'|'hard', length: number, gamemode: 'Klassikko' | 'Aikapommi' | 'Juoksuhauta'}, callback: RoomCreatedCallback): void => {
   socket.emit('createRoom', data);
   socket.on('roomCreated', (roomCode: string) => {
     callback(roomCode);
